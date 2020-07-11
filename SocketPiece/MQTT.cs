@@ -17,15 +17,13 @@ namespace SocketPiece
         private IManagedMqttClient managedMqttClientSubscriber;
         private string Topic;
         private string serverString;
-        private SocketStateMachine StateMachine;
 
-        public MQTT(string topic, SocketStateMachine ssm)
+        public MQTT(string topic)
         { 
             Topic = topic;
-            StateMachine = ssm;
         }
 
-        public async Task InitialiseManagedClient()
+        public async void InitialiseManagedClient()
         {
             var mqttFactory = new MqttFactory();
 
@@ -72,12 +70,8 @@ namespace SocketPiece
             //this.managedMqttClientSubscriber.ApplicationMessageReceivedHandler = new MqttApplicationMessageReceivedHandlerDelegate(this.OnSubscriberMessageReceived);
 
             await managedMqttClientPublisher.StartAsync(
-                new ManagedMqttClientOptions 
-                { 
-                    ClientOptions = options 
-                }
+                new ManagedMqttClientOptions { ClientOptions = options }
             );
-            StateMachine.Success();
 
             await managedMqttClientSubscriber.StartAsync(
                 new ManagedMqttClientOptions { ClientOptions = options }
@@ -113,7 +107,6 @@ namespace SocketPiece
         {
             //var item = $"Timestamp: {DateTime.Now:O} | Topic: {x.ApplicationMessage.Topic} | Payload: {x.ApplicationMessage.ConvertPayloadToString()} | QoS: {x.ApplicationMessage.QualityOfServiceLevel}";
             //this.BeginInvoke((MethodInvoker)delegate { this.TextBoxSubscriber.Text = item + Environment.NewLine + this.TextBoxSubscriber.Text; });
-            StateMachine.ToggleLogicalSwitch();
         }
     }
 }
