@@ -34,7 +34,7 @@ namespace Socket_Simulator
 
     public class Mongo
     {
-       public MongoClient dbClient = new MongoClient("mongodb://lanten:PantheonIA1@lantendragon.southeastasia.cloudapp.azure.com/IoT?authSource=admin");
+       public MongoClient dbClient = new MongoClient("mongodb://lanten2:lolpasswordlol@lantendragon.southeastasia.cloudapp.azure.com/IoT?authSource=admin");
     }
 
     public class User

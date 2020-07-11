@@ -2,65 +2,66 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Driver;
 using SocketPiece;
 
 namespace Socket_Simulator
 {
     public partial class Form1 : Form
     {
-        Piece sp1, sp2, sp3, sp4;
-        private Boolean buttonEnabled = true; 
+        //string mqtt_url = "localhost:1883"; //dev
+        string mqtt_url = "lantendragon.southeastasia.cloudapp.azure.com"; //prod
 
+        UserId userId;
+        Mongo mongo;
+        List<Piece> socketlist = new List<Piece>();
 
-        private async void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            //if (buttonEnabled)
-            //{
-            //    textBox1.Enabled = false;
-            //    textBox2.Enabled = false;
-            //    button1.Text = "Disconnect";
-
-            //    await sp1.setServer("http://localhost:1883");
-            //}
-            //else
-            //{
-            //    textBox1.Enabled = true;
-            //    textBox2.Enabled = true;
-            //    button1.Text = "Connect";
-
-            //    sp1.ssm.Disconnect();
-            //    sp2.ssm.Disconnect();
-            //    sp3.ssm.Disconnect();
-            //    sp4.ssm.Disconnect();
-            //}
-
             textBox1.Enabled = false;
             textBox2.Enabled = false;
+            button1.Enabled = false;
 
-            await sp1.setServer("http://localhost:1883");
-
-            buttonEnabled = !buttonEnabled;
+            foreach (Piece piece in socketlist)
+            {
+                piece.startSocket();
+            }
         }
 
-        public Form1()
+        public Form1(Mongo mong, UserId uid)
         {
+            userId = uid;
+            mongo = mong;
+
             this.InitializeComponent();
 
-            sp1 = new Piece("Test4", "test4");
-            sp2 = new Piece("Test5", "test5");
-            sp3 = new Piece("Test6", "test6");
-            sp4 = new Piece("Test7", "test7");
-            this.flowLayoutPanel1.Controls.Add(this.sp1);
-            this.flowLayoutPanel1.Controls.Add(this.sp2);
-            this.flowLayoutPanel1.Controls.Add(this.sp3);
-            this.flowLayoutPanel1.Controls.Add(this.sp4);
+            var database = mongo.dbClient.GetDatabase("IoT");
+            var socketCollection = database.GetCollection<BsonDocument>("sockets");
+            var userCollection = database.GetCollection<BsonDocument>("users");
 
+            userId = uid;
+            FilterDefinition<BsonDocument> EmptyFilter = Builders<BsonDocument>.Filter.Empty;
+            FilterDefinition<BsonDocument> SocketIdFilter = Builders<BsonDocument>.Filter.Eq("belongsTo", ObjectId.Parse(userId.userid));
+            var documents = socketCollection.Find(SocketIdFilter).ToList();
+
+            bool happened = false;
+
+            foreach (BsonDocument doc in documents)
+            {
+                Socket socket = BsonSerializer.Deserialize<Socket>(doc);
+                Piece piece = new Piece(socket.name, userId.userid, socket._id.ToString(), mqtt_url);
+                socketlist.Add(piece);
+                flowLayoutPanel1.Controls.Add(piece);
+            }
         }
 
         private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
@@ -68,5 +69,9 @@ namespace Socket_Simulator
 
         }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
