@@ -7,10 +7,8 @@ using MQTTnet.Extensions.ManagedClient;
 using MQTTnet.Formatter;
 using MQTTnet.Protocol;
 using Stateless;
-using Stateless.Graph;
 using System;
 using System.Diagnostics;
-using System.Net.Sockets;
 using System.Text;
 using System.Windows.Forms;
 
