@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.PhysicalSwitchButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.PhyBulb = new LedBulb.Bulb();
             this.PhyLabel = new System.Windows.Forms.Label();
             this.LogicLabel = new System.Windows.Forms.Label();
@@ -40,21 +40,22 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
-            // PhysicalSwitchButton
+            // button1
             // 
-            this.PhysicalSwitchButton.Location = new System.Drawing.Point(43, 76);
-            this.PhysicalSwitchButton.Name = "PhysicalSwitchButton";
-            this.PhysicalSwitchButton.Size = new System.Drawing.Size(75, 23);
-            this.PhysicalSwitchButton.TabIndex = 0;
-            this.PhysicalSwitchButton.Text = "PHY Switch";
-            this.PhysicalSwitchButton.UseVisualStyleBackColor = true;
-            this.PhysicalSwitchButton.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Enabled = false;
+            this.button1.Location = new System.Drawing.Point(43, 76);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "PHY Switch";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // PhyBulb
             // 
             this.PhyBulb.Location = new System.Drawing.Point(223, 12);
             this.PhyBulb.Name = "PhyBulb";
-            this.PhyBulb.On = true;
+            this.PhyBulb.On = false;
             this.PhyBulb.Size = new System.Drawing.Size(27, 24);
             this.PhyBulb.TabIndex = 1;
             // 
@@ -79,11 +80,11 @@
             // SocketName
             // 
             this.SocketName.AutoSize = true;
-            this.SocketName.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SocketName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SocketName.Location = new System.Drawing.Point(39, 23);
             this.SocketName.MaximumSize = new System.Drawing.Size(100, 0);
             this.SocketName.Name = "SocketName";
-            this.SocketName.Size = new System.Drawing.Size(73, 48);
+            this.SocketName.Size = new System.Drawing.Size(100, 16);
             this.SocketName.TabIndex = 4;
             this.SocketName.Text = "Smart Socket";
             // 
@@ -100,7 +101,7 @@
             // 
             this.LogicBulb.Location = new System.Drawing.Point(223, 44);
             this.LogicBulb.Name = "LogicBulb";
-            this.LogicBulb.On = true;
+            this.LogicBulb.On = false;
             this.LogicBulb.Size = new System.Drawing.Size(27, 24);
             this.LogicBulb.TabIndex = 6;
             // 
@@ -115,11 +116,10 @@
             // 
             // timer1
             // 
-            this.timer1.Enabled = true;
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // SocketPiece
+            // Piece
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -131,8 +131,8 @@
             this.Controls.Add(this.LogicLabel);
             this.Controls.Add(this.PhyLabel);
             this.Controls.Add(this.PhyBulb);
-            this.Controls.Add(this.PhysicalSwitchButton);
-            this.Name = "SocketPiece";
+            this.Controls.Add(this.button1);
+            this.Name = "Piece";
             this.Size = new System.Drawing.Size(272, 120);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -141,7 +141,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button PhysicalSwitchButton;
+        private System.Windows.Forms.Button button1;
         private LedBulb.Bulb PhyBulb;
         private System.Windows.Forms.Label PhyLabel;
         private System.Windows.Forms.Label LogicLabel;
