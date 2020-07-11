@@ -11,7 +11,7 @@ namespace SocketPiece
         Timer timer;
         Button button;
 
-        private State CurrentState = State.NoServer;
+        private State CurrentState = State.PhyOff;
 
         public SocketStateMachine(Bulb PhysicalBulb, Bulb LogicalBulb, Timer time, Button PhyButton)
         {
@@ -22,25 +22,7 @@ namespace SocketPiece
 
             machine = new StateMachine<State, Trigger>(() => CurrentState, s => CurrentState = s);
 
-            machine.Configure(State.NoServer)
-                .Permit(Trigger.ConnectToServer, State.PhyOn)
-                .OnActivate(() =>
-                {
-                    PhyBulb.On = false;
-                    timer.Stop();
-                    LogicBulb.On = false;
-                    button.Enabled = false;
-                })
-                .OnEntry(() =>
-                {
-                    PhyBulb.On = false;
-                    timer.Stop();
-                    LogicBulb.On = false;
-                    button.Enabled = false;
-                });
-
             machine.Configure(State.PhyOn)
-                .Permit(Trigger.DisconnectFromServer, State.NoServer)
                 .PermitIf(Trigger.PhysicalSwitch, State.PhyOff)
                 .OnEntry(() =>
                 {
@@ -50,7 +32,6 @@ namespace SocketPiece
                 });
 
             machine.Configure(State.PhyOff)
-                .Permit(Trigger.DisconnectFromServer, State.NoServer)
                 .Permit(Trigger.PhysicalSwitch, State.PhyOn)
                 .OnEntry(() =>
                 {
@@ -65,9 +46,9 @@ namespace SocketPiece
         public void TogglePhysicalSwitch() { machine.Fire(Trigger.PhysicalSwitch); }
         public void Connect() 
         {
-            machine.Fire(Trigger.ConnectToServer);
+            
         }
-        public void Disconnect() { machine.Fire(Trigger.DisconnectFromServer); }
+        public void Disconnect() { }
 
         public void Success() { button.Text = "Success"; }
 
@@ -77,6 +58,6 @@ namespace SocketPiece
         }
     }
 
-    public enum State { PhyOn, PhyOff, NoServer }
-    enum Trigger { PhysicalSwitch, LogicalSwitch, ConnectToServer, DisconnectFromServer }
+    //public enum State { PhyOn, PhyOff, NoServer }
+    //enum Trigger { PhysicalSwitch, LogicalSwitch, ConnectToServer, DisconnectFromServer }
 }
