@@ -2,6 +2,12 @@
 
 This smart socket project envisions an internet enabled device that sits in between your wall socket and your electrical appliance. With this smart socket device, we can breathe new life into older electrical appliances by granting them intenet connectivity indirectly through the smart socket. 
 
+### Links
+- Web Dashboard: https://lantendragon.southeastasia.cloudapp.azure.com
+- Desktop socket simulator: 
+- IoT-Dashboard GitHub repository:
+- IoT-Backend GitHub repository:
+
 # Socket Simulator
 As the focus of my course is software engineering, I do not have the expertise to develop the hardware. I have instead written a socket simulator to simulate the hardware. Below is the user guide for the smart socket system and dashboard. The executable file for this smart socket simulator is available for download in this repository.<br/>
 <br/>
@@ -28,12 +34,12 @@ As the focus of my course is software engineering, I do not have the expertise t
 ## Power Usage Page
 - This page shows the sum of power usage of each socket in the past 24 hours, sorted from highest to lowest
 - If you did not start the socket simulator before entering this page, there may not be any data to display. 
-- **Grab the socket simulator, toggle the socket from the web dashboard, start generating power usage data!**
+- **Grab the socket simulator, toggle the socket from the web dashboard, start generating power usage data!**<br/>
+<br/>
 
 # User Guide - Socket Simulator
 ## Login
-- **There is no register function from the socket Simulator. Register from the website instead**
-<br/>
+- There is no register function from the socket Simulator. Register from the website instead
 
 ## Socket Simluation
 - After you have logged in, the sockets are preloaded, but not yet started.
@@ -53,7 +59,3 @@ As the focus of my course is software engineering, I do not have the expertise t
 - The logical state in the server and by extension the dashboard is always the correct version.
 - The logical state can be modified by the user while the socket is offline.
 - When the socket reconnects to the network, the socket will read the latest logical state from the server and assume that state.
-
-### Links to the Dashboard and Backend repository on GitHub
-- IoT-Dashboard:
-- IoT-Backend:
