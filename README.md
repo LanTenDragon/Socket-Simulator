@@ -38,6 +38,10 @@ As the focus of my course is software engineering, I do not have the expertise t
 <br/>
 
 # User Guide - Socket Simulator
+## Downloading and launching
+- Download the zip file from the latest release
+- Unzip the file and run ```Socket Simulator.exe```
+
 ## Login
 - There is no register function from the socket Simulator. Register from the website instead
 
