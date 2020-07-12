@@ -4,7 +4,7 @@ This smart socket project envisions an internet enabled device that sits in betw
 
 ### Links
 - Web Dashboard: https://lantendragon.southeastasia.cloudapp.azure.com
-- Desktop socket simulator: 
+- Desktop socket simulator: https://github.com/LanTenDragon/Socket-Simulator/releases/tag/v1.0.0
 - IoT-Dashboard GitHub repository:
 - IoT-Backend GitHub repository:
 
