@@ -25,7 +25,7 @@ As the focus of my course is software engineering, I do not have the expertise t
 - This is the page where you can actually turn the sockets on or off. 
 - The text in the button shows the current state of the socket.
 - Toggling the button would change the state of that socket.
-- Sockets are arranged into groups, each group representing an anrea within your home.
+- Sockets are arranged into groups, each group representing an area within your home.
 - There may be sockets that do not have a group, perhaps because it was recently added, they are categorised as ```unassigned``` or ```ungrouped```
 - **Toggle a socket and observe the changes in the socket simulator desktop app**
 
