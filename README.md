@@ -4,7 +4,7 @@ This smart socket project envisions an internet enabled device that sits in betw
 
 ### Links
 - Web Dashboard: https://lantendragon.southeastasia.cloudapp.azure.com
-- Desktop socket simulator: https://github.com/LanTenDragon/Socket-Simulator/releases/tag/v1.0.0
+- Desktop socket simulator: https://github.com/LanTenDragon/Socket-Simulator/releases/
 
 # Socket Simulator
 As the focus of my course is software engineering, I do not have the expertise to develop the hardware. I have instead written a socket simulator to simulate the hardware. Below is the user guide for the smart socket system and dashboard. The executable file for this smart socket simulator is available for download in this repository.<br/>
