@@ -189,6 +189,7 @@ namespace SocketPiece
         private async void button1_Click(object sender, EventArgs e)
         {
             Debug.WriteLine(managedMqttClientPublisher.IsStarted.ToString());
+            button1.Enabled = false;
             if (!managedMqttClientPublisher.IsStarted || !managedMqttClientSubscriber.IsStarted)
             {
                 await managedMqttClientPublisher.StartAsync(new ManagedMqttClientOptions { ClientOptions = PublisherOptions });
@@ -200,21 +201,22 @@ namespace SocketPiece
                 await managedMqttClientPublisher.StopAsync();
                 await managedMqttClientSubscriber.StopAsync();
             }
+            button1.Enabled = true;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            string power = rng.Next(1, 100).ToString();
-            PowerDisplay.Text = power;
+            int power = rng.Next(1, 100);
+            PowerDisplay.Text = power.ToString();
             PublishPower(power);
         }
 
-        public async void PublishPower(string power)
+        public async void PublishPower(int power)
         {
             try
             {
-                var payload = Encoding.UTF8.GetBytes(power.ToString());
-                var message = new MqttApplicationMessageBuilder().WithTopic("socket/" + userid + "/" + socketid + "/power").WithPayload(payload).WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce).WithRetainFlag().Build();
+                var payload = Encoding.UTF8.GetBytes("{\"id\":\"" + socketid.ToString() + "\",\"power\":" + power.ToString() + "}");
+                var message = new MqttApplicationMessageBuilder().WithTopic("socket/" + userid + "/" + socketid + "/power").WithPayload(payload).WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce).Build();
 
                 if (this.managedMqttClientPublisher != null)
                 {
